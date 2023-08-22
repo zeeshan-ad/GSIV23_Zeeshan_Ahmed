@@ -12,7 +12,7 @@ const getUpcomingMovies = async (Page) => {
     },
   }
 
-  const response = await api(`${Upcoming_movies_list}?page=${Page}`, config).then((response) => {
+  const response = await api(`${Upcoming_movies_list}?page=${Page}&sort_by=primary_release_date.asc`, config).then((response) => {
     return response;
   }).catch((error) => {
     return error;

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Header from '../../components/header/Header';
 import List from '../../components/list/List';
 import { getConfigs } from '../../apis';
@@ -8,6 +8,7 @@ import { setConfig } from '../../store/slices/ConfigSlice';
 const Home = () => {
   const dispatch = useDispatch();
   const { config } = useSelector(state => state.config);
+  const [SearchTerm, setSearchTerm] = useState(null);
 
   const callGetConfigs = async () => {
     const response = await getConfigs();
@@ -28,7 +29,7 @@ const Home = () => {
 
   return (
     <div>
-      <Header />
+      <Header setSearchTerm={setSearchTerm} SearchTerm={SearchTerm}/>
       <List ImageConfig={config} />
     </div>
   )

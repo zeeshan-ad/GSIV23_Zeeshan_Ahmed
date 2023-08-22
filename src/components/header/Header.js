@@ -6,7 +6,8 @@ import styles from './styles.module.css';
 import { Link } from 'react-router-dom';
 import palette from '../../utils/palette.json'
 
-const Header = () => {
+const Header = ({ setSearchTerm, SearchTerm }) => {
+  console.log(SearchTerm);
   return (
     <div className={styles.HeaderContainer}>
       <Input
@@ -18,15 +19,16 @@ const Header = () => {
           borderRadius: '5px',
           background: palette.Disabled,
         }}
+        onChange={(e) => setSearchTerm(e.target.value)}
         placeholder='Search'
         startAdornment={
           <InputAdornment position="start">
-            <AiOutlineSearch size={20} color={palette.Gray}/>
+            <AiOutlineSearch size={20} color={palette.Gray} />
           </InputAdornment>
         }
       />
       <Link to='/'>
-        <AiFillHome size={20} color={palette.Gray}/>
+        <AiFillHome size={20} color={palette.Gray} />
       </Link>
     </div>
   )

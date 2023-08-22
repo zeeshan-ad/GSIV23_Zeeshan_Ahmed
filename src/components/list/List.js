@@ -36,7 +36,6 @@ const List = ({ ImageConfig }) => {
   }, [scrolledToBottom])
 
 
-
   useEffect(() => {
     callGetUpcomingList();
     window.addEventListener('scroll', handleScroll);
