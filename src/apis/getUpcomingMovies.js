@@ -1,11 +1,10 @@
-import axios from 'axios';
+import api from '../utils/api';
 import APIconfigs from '../utils/endpoints.json';
 
 const getUpcomingMovies = async () => {
 
   const { Upcoming_movies_list } = APIconfigs;
 
-  const url = Upcoming_movies_list + `&api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}`;
   const config = {
     method: 'GET',
     headers: {
@@ -13,7 +12,7 @@ const getUpcomingMovies = async () => {
     },
   }
 
-  const response = await axios(url, config).then((response) => {
+  const response = await api(Upcoming_movies_list, config).then((response) => {
     return response;
   }).catch((error) => {
     return error;
@@ -21,6 +20,5 @@ const getUpcomingMovies = async () => {
 
   return response;
 }
-
 
 export default getUpcomingMovies;
