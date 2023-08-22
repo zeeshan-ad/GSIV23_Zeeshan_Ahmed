@@ -1,13 +1,28 @@
 import React from 'react';
 import Input from '@mui/material/Input';
 import InputAdornment from '@mui/material/InputAdornment';
-import { AiOutlineSearch, AiFillHome } from 'react-icons/ai';
+import { AiFillHome } from 'react-icons/ai';
+import { BiSearch } from 'react-icons/bi';
+import { GrFormClose } from 'react-icons/gr';
 import styles from './styles.module.css';
 import { Link } from 'react-router-dom';
 import palette from '../../utils/palette.json'
 
-const Header = ({ setSearchTerm, SearchTerm }) => {
-  console.log(SearchTerm);
+const Header = ({ setSearchTerm, setPage, SearchTerm, setMoviesList, callGetConfigs }) => {
+
+  const handleSearchInput = (e) => {
+    setSearchTerm(e.target.value);
+    setPage(1);
+    setMoviesList([]);
+  }
+
+  const handleClearSearch = () => {
+    setSearchTerm('');
+    setPage(1);
+    setMoviesList([]);
+    callGetConfigs();
+  }
+
   return (
     <div className={styles.HeaderContainer}>
       <Input
@@ -19,11 +34,19 @@ const Header = ({ setSearchTerm, SearchTerm }) => {
           borderRadius: '5px',
           background: palette.Disabled,
         }}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        value={SearchTerm}
+        onChange={handleSearchInput}
         placeholder='Search'
         startAdornment={
           <InputAdornment position="start">
-            <AiOutlineSearch size={20} color={palette.Gray} />
+            <BiSearch size={20} color={palette.Gray} />
+          </InputAdornment>
+        }
+        endAdornment={
+          <InputAdornment position="end">
+            <GrFormClose size={20} color={palette.Gray}
+              style={{ cursor: 'pointer', visibility: SearchTerm.length > 0 ? 'visible' : 'hidden' }}
+              onClick={handleClearSearch} />
           </InputAdornment>
         }
       />

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
@@ -7,44 +7,12 @@ import { CardActionArea } from '@mui/material';
 import styles from './styles.module.css';
 import palette from '../../utils/palette.json'
 import { FaStar } from 'react-icons/fa';
-import { getUpcomingMovies } from '../../apis';
 
-const List = ({ ImageConfig }) => {
-
-  const [UpcomingMovies, setUpcomingMovies] = useState([]);
-  const [scrolledToBottom, setscrolledToBottom] = useState(false)
-  const [Page, setPage] = useState(1);
-
-  const callGetUpcomingList = async () => {
-    const response = await getUpcomingMovies(Page);
-    if (response?.status === 200) {
-      setscrolledToBottom(false);
-      setUpcomingMovies((prev) => [...prev, ...response?.data?.results]);
-      setPage((prev) => prev + 1);
-    } else {
-      console.log(response?.status_message);
-    }
-  }
-
-  const handleScroll = () => {
-    setscrolledToBottom(window.innerHeight + window.scrollY >= document.body.scrollHeight - 50);
-  }
-
-  useEffect(() => {
-    if (scrolledToBottom)
-      callGetUpcomingList();
-  }, [scrolledToBottom])
-
-
-  useEffect(() => {
-    callGetUpcomingList();
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [])
+const List = ({ ImageConfig, data }) => {
 
   return (
     <div className={styles.ListContainer}>
-      {UpcomingMovies?.map((item, index) => (
+      {data?.map((item, index) => (
         <Card className={styles.Card} key={index}>
           <CardActionArea>
             <CardMedia
