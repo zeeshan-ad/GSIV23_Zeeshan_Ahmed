@@ -1,0 +1,46 @@
+.ListContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ListItemHead {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+
+.Ratings {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.Card {
+  width: calc(50% - 10px);
+}
+
+@media (min-width: 768px) {
+  .Card {
+    width: calc(32% - 5px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .Card {
+    width: calc(18.5% - 2px);
+  }
+}
+
+@media (min-width: 1280px) {
+  .Card {
+    width: calc(15.5% - 3px);
+  }
+}
