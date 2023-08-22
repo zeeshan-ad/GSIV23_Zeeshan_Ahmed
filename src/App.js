@@ -1,23 +1,19 @@
-import { useEffect } from "react";
-import { getUpcomingMovies } from "./apis";
+import React from "react";
+import {
+  Routes,
+  Route
+} from "react-router-dom";
+import Home from "./pages/home/Home";
+import MovieDetails from "./pages/movie/MovieDetails";
 
 function App() {
 
-  const callgetUpcomingList = async () => {
-    console.log("callgetUpcomingList")
-    const response = await getUpcomingMovies();
-    console.log(response);
-  }
-  useEffect(() => {
-    callgetUpcomingList();
-  }, [])
-  
+
   return (
-    <div className="App">
-      <header className="App-header">
-       
-      </header>
-    </div>
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path="/movie/:id" element={<MovieDetails />}/>
+      </Routes>
   );
 }
 
