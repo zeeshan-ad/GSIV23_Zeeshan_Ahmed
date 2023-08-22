@@ -7,14 +7,20 @@ import { CardActionArea } from '@mui/material';
 import styles from './styles.module.css';
 import palette from '../../utils/palette.json'
 import { FaStar } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 
 const List = ({ ImageConfig, data }) => {
+  const navigate = useNavigate();
+
+  const handleNavigation = (id) => {
+    navigate(`/movie/${id}`)
+  }
 
   return (
     <div className={styles.ListContainer}>
       {data?.map((item, index) => (
         <Card className={styles.Card} key={index}>
-          <CardActionArea>
+          <CardActionArea onClick={() => handleNavigation(item?.id)}>
             <CardMedia
               component="img"
               image={ImageConfig?.images?.base_url + ImageConfig?.images?.poster_sizes[3] + item?.poster_path}

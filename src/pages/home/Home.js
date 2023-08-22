@@ -72,6 +72,8 @@ const Home = () => {
         callGetConfigs={callGetConfigs}
         setPage={setPage}
         setMoviesList={setMoviesList}
+        title={null}
+        isSearchable={true}
       />
       <List
         data={MoviesList}

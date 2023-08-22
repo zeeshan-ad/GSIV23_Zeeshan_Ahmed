@@ -1,0 +1,55 @@
+.MovieDetailsContainer {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.MovieDetailsImage{
+  margin-bottom: 10px;
+  height: 400px;
+}
+
+.Ratings {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.MovieDetailsTitle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.MovieDetailsKPIs p {
+  margin: 0;
+}
+
+@media (min-width: 512px) {
+  .MovieDetailsContainer {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .MovieDetailsImage {
+    margin-right: 20px;
+    height: 300px;
+  }
+}
+
+@media (min-width: 768px) {
+  .MovieDetailsImage {
+    height: 400px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .MovieDetailsImage {
+    height: 500px;
+  }
+}

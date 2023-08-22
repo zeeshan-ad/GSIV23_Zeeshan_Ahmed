@@ -1,5 +1,6 @@
 {
   "configuration":"/configuration",
   "Upcoming_movies_list": "/movie/upcoming",
-  "Search":"/search/movie"
+  "Search":"/search/movie",
+  "Movie_details":"/movie"
 }
