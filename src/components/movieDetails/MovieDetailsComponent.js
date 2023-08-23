@@ -3,9 +3,13 @@ import styles from './styles.module.css';
 import palette from '../../utils/palette.json'
 import { FaStar } from 'react-icons/fa';
 import { convertDuration } from '../../utils/helper';
+import { MoonLoader } from 'react-spinners';
 
 
-const MovieDetailsComponent = ({ details, ImageConfig }) => {
+const MovieDetailsComponent = ({ details, ImageConfig, isLoading }) => {
+
+  if (isLoading)
+    return <div className={styles.LoadingContainer}><MoonLoader color={palette.Blue} /></div>
 
   return (
     <div className={styles.MovieDetailsContainer}>
@@ -26,9 +30,9 @@ const MovieDetailsComponent = ({ details, ImageConfig }) => {
         </div>
         <div className={styles.MovieDetailsKPIs}>
           <p style={{ marginBottom: '5px' }}>
-            {details?.release_date?.split('-')[0]}
+            {details?.release_date?.split('-')?.[0]}
             &nbsp;| {convertDuration(details?.runtime)}
-            &nbsp;| {details?.directors[0]?.name}</p>
+            &nbsp;| {details?.directors?.[0]?.name}</p>
           <p>Cast: {details?.cast?.map((item, index) => {
             return details?.cast?.length - 1 === index ? item?.name + '.' : item?.name + ', '
           })} </p>

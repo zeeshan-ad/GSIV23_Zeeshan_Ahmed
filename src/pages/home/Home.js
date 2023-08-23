@@ -13,6 +13,7 @@ const Home = () => {
   const [MoviesList, setMoviesList] = useState([]);
   const [scrolledToBottom, setscrolledToBottom] = useState(false)
   const [Page, setPage] = useState(1);
+  const [IsPageLoading, setIsPageLoading] = useState(false);
 
   const callGetConfigs = async () => {
     const response = await getConfigs();
@@ -24,22 +25,29 @@ const Home = () => {
   }
 
   const callGetUpcomingList = async () => {
+    if (Page === 1) {
+      setIsPageLoading(true);
+    }
     if (SearchTerm.length < 1) {
       const response = await getUpcomingMovies(Page);
       if (response?.status === 200) {
+        setIsPageLoading(false);
         setscrolledToBottom(false);
         setMoviesList((prev) => [...prev, ...response?.data?.results]);
         setPage((prev) => prev + 1);
       } else {
+        setIsPageLoading(false);
         toast.error(response?.status_message);
       }
     } else {
       const response = await search(Page, SearchTerm);
       if (response?.status === 200) {
+        setIsPageLoading(false);
         setscrolledToBottom(false);
         setMoviesList((prev) => [...prev, ...response?.data?.results]);
         setPage((prev) => prev + 1);
       } else {
+        setIsPageLoading(false);
         toast.error(response?.status_message);
       }
     }
@@ -76,6 +84,7 @@ const Home = () => {
         isSearchable={true}
       />
       <List
+        IsLoading={IsPageLoading}
         data={MoviesList}
         ImageConfig={config}
       />

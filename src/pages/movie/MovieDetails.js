@@ -10,25 +10,35 @@ const MovieDetails = () => {
   const { id } = useParams();
   const { config } = useSelector(state => state.config);
   const [MovieInfo, setMovieinfo] = useState();
+  const [isLoading, setisLoading] = useState(false);
 
   const callGetMovieDetails = async () => {
+    setisLoading(true);
     const response = await getMovieDetails(id);
-    const response2 = await getMovieCredits(id);
     if (response?.status === 200) {
+      setisLoading(false);
       setMovieinfo(response?.data)
     } else {
+      setisLoading(false);
       toast.error(response?.status_message);
     }
+  }
 
-    if (response2?.status === 200) {
-      setMovieinfo((prev) => ({ ...prev, directors: response2?.data?.crew?.filter((item) => item?.job === 'Director'), cast: response2?.data?.cast }))
+  const callGetMovieCastCrew = async () => {
+    setisLoading(true);
+    const response = await getMovieCredits(id);
+    if (response?.status === 200) {
+      setisLoading(false);
+      setMovieinfo((prev) => ({ ...prev, directors: response?.data?.crew?.filter((item) => item?.job === 'Director'), cast: response?.data?.cast }))
     } else {
-      toast.error(response2?.status_message);
+      setisLoading(false);
+      toast.error(response?.status_message);
     }
   }
 
   useEffect(() => {
     callGetMovieDetails();
+    callGetMovieCastCrew();
   }, [])
 
   return (
@@ -37,7 +47,11 @@ const MovieDetails = () => {
         title='Movie Details'
         isSearchable={false}
       />
-      <MovieDetailsComponent details={MovieInfo} ImageConfig={config}/>
+      <MovieDetailsComponent 
+      isLoading={isLoading}
+      details={MovieInfo} 
+      ImageConfig={config} 
+      />
     </div>
   )
 }

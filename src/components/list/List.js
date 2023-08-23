@@ -8,13 +8,18 @@ import styles from './styles.module.css';
 import palette from '../../utils/palette.json'
 import { FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
+import { MoonLoader } from 'react-spinners';
 
-const List = ({ ImageConfig, data }) => {
+const List = ({ ImageConfig, data, IsLoading }) => {
   const navigate = useNavigate();
 
+  console.log(IsLoading)
   const handleNavigation = (id) => {
     navigate(`/movie/${id}`)
   }
+
+  if (IsLoading)
+    return <div className={styles.LoadingContainer}><MoonLoader color={palette.Blue} /></div>
 
   return (
     <div className={styles.ListContainer}>
