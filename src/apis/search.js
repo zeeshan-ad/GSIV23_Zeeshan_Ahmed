@@ -1,7 +1,7 @@
 import api from "../utils/api";
 import APIconfigs from "../utils/endpoints.json";
 
-const search = async (Page, SearchTerm) => {
+const search = async (SearchTerm, Page) => {
 
   const { Search } = APIconfigs;
 

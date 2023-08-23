@@ -6,7 +6,7 @@ import { BiSearch } from 'react-icons/bi';
 import { GrFormClose } from 'react-icons/gr';
 import styles from './styles.module.css';
 import { Link } from 'react-router-dom';
-import palette from '../../utils/palette.json'
+import palette from '../../utils/palette.json';
 
 const Header = ({ setSearchTerm, setPage, SearchTerm, setMoviesList, title, isSearchable }) => {
 

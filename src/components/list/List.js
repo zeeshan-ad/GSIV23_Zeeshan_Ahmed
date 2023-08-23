@@ -13,13 +13,16 @@ import { MoonLoader } from 'react-spinners';
 const List = ({ ImageConfig, data, IsLoading }) => {
   const navigate = useNavigate();
 
-  console.log(IsLoading)
   const handleNavigation = (id) => {
     navigate(`/movie/${id}`)
   }
 
   if (IsLoading)
     return <div className={styles.LoadingContainer}><MoonLoader color={palette.Blue} /></div>
+
+  if (data?.length < 1) {
+    return <div className={styles.LoadingContainer}><h3>No Results Found</h3></div>
+  }
 
   return (
     <div className={styles.ListContainer}>

@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Header from '../../components/header/Header';
 import List from '../../components/list/List';
 import { getConfigs, getUpcomingMovies, search } from '../../apis';
 import { useDispatch, useSelector } from 'react-redux';
 import { setConfig } from '../../store/slices/ConfigSlice';
 import { toast } from 'react-toastify';
+import debounce from 'lodash.debounce';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -24,6 +25,21 @@ const Home = () => {
     }
   }
 
+  const debouncedSearch = useMemo(() => {
+    return debounce(async (term, page) => {
+      const response = await search(term, page);
+      if (response?.status === 200) {
+        setIsPageLoading(false);
+        setscrolledToBottom(false);
+        setMoviesList((prev) => [...prev, ...response?.data?.results]);
+        setPage((prev) => prev + 1);
+      } else {
+        setIsPageLoading(false);
+        toast.error(response?.status_message);
+      }
+    }, 300);
+  }, []);
+
   const callGetUpcomingList = async () => {
     if (Page === 1) {
       setIsPageLoading(true);
@@ -40,16 +56,7 @@ const Home = () => {
         toast.error(response?.status_message);
       }
     } else {
-      const response = await search(Page, SearchTerm);
-      if (response?.status === 200) {
-        setIsPageLoading(false);
-        setscrolledToBottom(false);
-        setMoviesList((prev) => [...prev, ...response?.data?.results]);
-        setPage((prev) => prev + 1);
-      } else {
-        setIsPageLoading(false);
-        toast.error(response?.status_message);
-      }
+      debouncedSearch(SearchTerm, Page);
     }
   }
 
@@ -79,9 +86,11 @@ const Home = () => {
         SearchTerm={SearchTerm}
         callGetConfigs={callGetConfigs}
         setPage={setPage}
+        Page={Page}
         setMoviesList={setMoviesList}
         title={null}
         isSearchable={true}
+        debouncedSearch={debouncedSearch}
       />
       <List
         IsLoading={IsPageLoading}
