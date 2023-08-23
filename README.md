@@ -8,6 +8,6 @@ Please follow below steps to run the application on your system.
 Note: the application will by default open in port 3000. If for any reason the application does not run in the browser follow the url 
 http://localhost:3000 once node is running.
 
-The application is also hosted on firebase hosting from google and can be accessed on the following link:
+The application is also hosted on firebase hosting from google and can be accessed on the following link: https://gsiv23-4e998.web.app/
 
 Thank you!
